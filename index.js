@@ -95,6 +95,7 @@ client.on('interactionCreate', async (interaction) => {
                 steps,
                 prompt,
                 negativeprompt,
+                model: config.model
             })
         
             const { request_id } = response.data

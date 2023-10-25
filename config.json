@@ -1,9 +1,10 @@
 {
     "token": "",
     "embedUrl": "",
+    "model": "",
     "api": {
-        "generateUrl": "/generate",
-        "positionUrl": "/queue_position/",
-        "resultUrl": "/result/"
+        "generateUrl": "<YOUR_WEBSITE>/generate",
+        "positionUrl": "<YOUR_WEBSITE>/queue_position/",
+        "resultUrl": "<YOUR_WEBSITE>/result/"
     }
 }
