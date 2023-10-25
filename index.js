@@ -1,7 +1,12 @@
 const { Client, GatewayIntentBits, REST, Routes, EmbedBuilder, AttachmentBuilder } = require('discord.js')
 const axios = require('axios')
-const config = require('./config.json')
+let config = require('./config.json')
 const fs = require('fs')
+
+if(config.token.length < 1) {
+    // only needed for CameronWDMorgan developing & pushing reasons
+    config = require('./token.json')
+}
 
 const client = new Client({
     intents: [
@@ -84,7 +89,7 @@ client.on('interactionCreate', async (interaction) => {
         const negativeprompt = interaction.options.getString('negativeprompt') || config.negativeprompt
 
         try {
-            const response = await axios.post('https://neversfw.ngrok.dev/generate', {
+            const response = await axios.post( config.api.generateUrl , {
                 width,
                 height,
                 steps,
@@ -104,7 +109,7 @@ client.on('interactionCreate', async (interaction) => {
             // Poll for the result
             const pollingInterval = setInterval(async () => {
                 try {
-                    const positionResponse = await axios.get(`https://neversfw.ngrok.dev/queue_position/${request_id}`)
+                    const positionResponse = await axios.get(`${config.api.positionUrl}${request_id}`)
                     const { status, position } = positionResponse.data
         
                     if (status === 'waiting') {
@@ -113,7 +118,7 @@ client.on('interactionCreate', async (interaction) => {
                     } else if (status === 'completed') {
                         clearInterval(pollingInterval)
         
-                        const resultResponse = await axios.get(`https://neversfw.ngrok.dev/result/${request_id}`, {
+                        const resultResponse = await axios.get(`${config.api.resultUrl}${request_id}`, {
                             responseType: 'arraybuffer'
                         })
         
@@ -131,7 +136,7 @@ client.on('interactionCreate', async (interaction) => {
                             embed.setImage('attachment://generated_image.png')
                                 .setTitle(interaction.guild.name)
                                 .setTitle(interaction.guild.name)
-                                .setURL("https://discord.gg/2QXV66RVMG")
+                                .setURL(config.embedUrl)
                                 .setDescription('Here is your generated image!')
                                 .setFooter({text: footerString})
                                 .setTimestamp()
@@ -164,9 +169,5 @@ client.on('interactionCreate', async (interaction) => {
     }
 })
 
-if(config.token.length > 2){
-    client.login(config.token)
-} else {
-    let token = require('./token.json')
-    client.login(token.token)
-}
+client.login(config.token)
+

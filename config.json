@@ -1,4 +1,10 @@
 {
     "token": "",
-    "negativeprompt": "EasyNegativeV2, (3d:0.5), worst quality, low quality, watermark, signature, simple background, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, speech bubble, extra legs, extra limbs, bad proportions, poorly drawn hands, text, flat background, (child:1.2), (teenager:1.2), (teen:1.2), (kid:1.2)"
+    "negativeprompt": "EasyNegativeV2, (3d:0.5), worst quality, low quality, watermark, signature, simple background, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, speech bubble, extra legs, extra limbs, bad proportions, poorly drawn hands, text, flat background",
+    "embedUrl": "",
+    "api": {
+        "generateUrl": "/generate",
+        "positionUrl": "/queue_position/",
+        "resultUrl": "/result/"
+    }
 }
