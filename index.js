@@ -86,7 +86,7 @@ client.on('interactionCreate', async (interaction) => {
         const height = interaction.options.getInteger('height') || 512
         const steps = interaction.options.getInteger('steps') || 20
         const prompt = interaction.options.getString('prompt')
-        const negativeprompt = interaction.options.getString('negativeprompt') || config.negativeprompt
+        const negativeprompt = interaction.options.getString('negativeprompt') || ''
 
         try {
             const response = await axios.post( config.api.generateUrl , {
